@@ -23,16 +23,8 @@ def calculate_euler_distance(point1, point2):
     return distance
 
 
-def kmeans(points, n_centers=0):
-    centers = list()
+def map_points_to_centers(points, centers) : # Returns centers_points
     centers_points = dict()
-
-    for i in range(n_centers):
-        center = random.choice(points)
-        if center not in centers:
-            centers.append(center)
-
-
     for point in points:
         min_distance = calculate_euler_distance(centers[0], point)
         min_center = 0
@@ -44,14 +36,55 @@ def kmeans(points, n_centers=0):
         if min_center not in centers_points:
             centers_points[min_center] = list()
         centers_points[min_center].append(point)
-    print(centers_points)
+    return centers_points
+
+
+def reduce_centers(centers_points): # Returns new centers
+    new_centers = list()
+    for center_index in centers_points:
+        points = centers_points[center_index]
+        
+        x_sum = 0
+        y_sum = 0
+
+        for point in points:
+            x_sum+=int(point[0])
+            y_sum+=int(point[1])
+
+        new_centers.append([ round(x_sum/len(points),2), round(y_sum/len(points),2) ])
+
+    return new_centers
+
+
+def kmeans(points, n_centers=0):
+    centers = list()
+    centers_points = dict()
+
+    for i in range(n_centers):
+        center = random.choice(points)
+        if center not in centers:
+            centers.append(center)
+
+
+    while True:
+        centers_points = map_points_to_centers(points, centers)
+        new_centers = reduce_centers(centers_points)
+        if(centers==new_centers):
+            break
+        print(f"{centers} are changed to {new_centers}")
+        centers = new_centers
+
+    print(centers)
+    for x in centers_points:
+        print(f"Center {x} has {len(centers_points[x])} points")
+
 
 
     # for point in points: 
         
 
 
-    return [[1,2],[[3,6,2,3,5],[7,5,5,2,4]]]
+    return centers_points
 
 
 
