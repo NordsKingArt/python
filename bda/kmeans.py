@@ -16,6 +16,7 @@ for line in dataset.readlines():
     y_cord = y_cord.replace("\n","")
     points.append([x_cord, y_cord])
 
+points = [[1,2],[4,5],[6,2],[5,6]]
 
 def calculate_euler_distance(point1, point2):
     point1, point2 = [int(point1[0]),int(point1[1])],[int(point2[0]),int(point2[1])]
@@ -60,10 +61,11 @@ def kmeans(points, n_centers=0):
     centers = list()
     centers_points = dict()
 
-    for i in range(n_centers):
+    while len(centers)<n_centers:
         center = random.choice(points)
         if center not in centers:
             centers.append(center)
+    print(centers)
 
 
     while True:
@@ -74,7 +76,7 @@ def kmeans(points, n_centers=0):
         print(f"{centers} are changed to {new_centers}")
         centers = new_centers
 
-    print(centers)
+    # print(centers_points)
     for x in centers_points:
         print(f"Center {x} has {len(centers_points[x])} points")
 
