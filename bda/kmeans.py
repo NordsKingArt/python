@@ -16,8 +16,6 @@ for line in dataset.readlines():
     y_cord = y_cord.replace("\n","")
     points.append([x_cord, y_cord])
 
-points = [[1,2],[4,5],[6,2],[5,6]]
-
 def calculate_euler_distance(point1, point2):
     point1, point2 = [int(point1[0]),int(point1[1])],[int(point2[0]),int(point2[1])]
     distance = ((point1[0]-point2[0])**2 + (point1[1]-point2[1])**2) ** 0.5
@@ -92,7 +90,7 @@ def kmeans(points, n_centers=0):
 
 
 
-points = kmeans(points , 2)[1]
+points = kmeans(points , 6)[1]
 
 
 # plt.scatter(x,y, c="black", label="Group #1")
