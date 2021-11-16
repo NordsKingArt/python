@@ -4,10 +4,7 @@ import random
 
 
 # Reading datasets
-dir_path = os.path.dirname(os.path.realpath(__file__))
-dataset = open(os.path.join(dir_path, "dataset.txt"),"r")
-
-
+dataset = open("bda/dataset.txt","r")
 
 points = list()
 for line in dataset.readlines():
